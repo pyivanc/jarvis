@@ -1,0 +1,34 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: client
+  labels:
+    app: client
+    tier: frontend
+spec:
+  selector:
+    app: client
+    tier: frontend
+  ports:
+  - port: 80
+    targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: client
+        tier: frontend
+    spec:
+      containers:
+      - name: client
+        image: pyivanc/jarvis-client:latest
+        ports:
+          - containerPort: 8080
+      restartPolicy: Always
+
