@@ -1,16 +1,17 @@
 version: '3.5'
 
 services:
-
   server:
     build:
       context: ./server
       dockerfile: Dockerfile
+    volumes:
+      - ./server/jarvis:/usr/src/app/jarvis
     ports:
       - 5000:5000
     environment:
       - FLASK_ENV=development
-      - APP_SETTINGS=project.config.DevelopmentConfig
+      - APP_SETTINGS=jarvis.config.DevelopmentConfig
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     depends_on:
@@ -30,6 +31,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
+    volumes:
+      - './client/src:/app/src'
     ports:
       - 8080:8080
     depends_on:
