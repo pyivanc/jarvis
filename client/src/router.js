@@ -1,54 +1,38 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { Header, Sidebar } from './main';
 import Home from './home';
 import Todos from './todos';
+import { mainTheme } from './theme';
 
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 const App = styled.div`
+    height: 100vh;
     display: grid;
-    grid-template-rows: 10rem auto;
-    grid-template-columns: 10rem auto;
+    background-color: ${props => props.theme.primary};
+    grid-template-rows: 2rem auto;
+    grid-template-columns: 5rem auto;
     grid-template-areas:
         "header header"
         "sidebar content";
-`;
-
-const Sidebar = styled.div`
-    grid-area: sidebar;
-`;
-
-const Section = styled.div`
-`;
-
-const Header = styled.div`
-    grid-area: header;
 `;
 
 const Content = styled.div`
     grid-area: content;
 `;
 
-const Title = styled.div`
-
-`;
-
 export default () => (
     <Router>
-        <App>
-            <Header>
-                <Title>Jarvis</Title>
-            </Header>
-            <Sidebar>
-                <Section>
-                    <Link to='/'>Home</Link>
-                    <Link to='/todos'>TODO</Link>
-                </Section>
-            </Sidebar>
-            <Content>
-                <Route exact path='/' component={Home} />
-                <Route path='/todos' component={Todos} />
-            </Content>
-        </App>
+        <ThemeProvider theme={mainTheme}>
+            <App>
+                <Header />
+                <Sidebar />
+                <Content>
+                    <Route exact path='/' component={Home} />
+                    <Route path='/todos' component={Todos} />
+                </Content>
+            </App>
+        </ThemeProvider>
     </Router>
 );
