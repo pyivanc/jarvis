@@ -10,9 +10,9 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 const App = styled.div`
     height: 100vh;
     display: grid;
-    background-color: ${props => props.theme.primary};
-    grid-template-rows: 2rem auto;
-    grid-template-columns: 5rem auto;
+    background-color: ${({theme}) => theme.pallete.white};
+    grid-template-rows: 40px auto;
+    grid-template-columns: 50px auto;
     grid-template-areas:
         "header header"
         "sidebar content";
@@ -20,6 +20,7 @@ const App = styled.div`
 
 const Content = styled.div`
     grid-area: content;
+    padding: 20px;
 `;
 
 export default () => (

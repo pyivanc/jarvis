@@ -1,23 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faList, faHome } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 
-const Sidebar = styled.div`
+const StyledSidebar = styled.div`
     grid-area: sidebar;
-    background-color: ${props => props.theme.foreground};
-    color: ${props => props.theme.background};
+    background-color: ${({theme}) => theme.pallete.black};
+    color: ${({theme}) => theme.pallete.white};
 `;
 
-const Section = styled.div`
-
+const StyledSection = styled(Link)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    height: 50px;
+    color: ${({theme}) => theme.pallete.white};
 `;
 export default () => (
-    <Sidebar>
-        <Section>
-            <Link to='/'>Home</Link>
-        </Section>
-        <Section>
-            <Link to='/todos'>TODO</Link>
-        </Section>
-    </Sidebar>
+    <StyledSidebar>
+            <StyledSection to='/'>
+                <FontAwesomeIcon icon={faHome} />
+            </StyledSection>
+            <StyledSection to='/todos'>
+                <FontAwesomeIcon icon={faList} />
+            </StyledSection>
+    </StyledSidebar>
 );
