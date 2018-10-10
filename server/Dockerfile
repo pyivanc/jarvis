@@ -9,6 +9,8 @@ RUN apt-get update && \
 # set working directory
 WORKDIR /usr/src/app
 
+ENV FLASK_APP manage.py
+
 # add and install requirements
 COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt

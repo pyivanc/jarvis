@@ -1,6 +1,8 @@
+from flask_migrate import upgrade
+
 from jarvis import create_app
 from jarvis import db
-from jarvis.api import manage
+from jarvis.api import manage as api_manage
 
 
 app = create_app()
@@ -14,10 +16,6 @@ def recreate_db():
 
 
 @app.cli.command()
-def seed_db():
-    manage.seed_db()
-
-
-@app.cli.command()
 def deploy():
-    pass
+    upgrade()
+    api_manage.deploy()

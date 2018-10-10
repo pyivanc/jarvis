@@ -8,4 +8,6 @@ from .models import Todo
 
 @api.route('/todos')
 def get_todos():
-    return jsonify([t.to_json() for t in Todo.query.all()])
+    todos = Todo.query.all()
+    result = [{'title': t.title, 'description': t.description} for t in todos]
+    return jsonify(result)

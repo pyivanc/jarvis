@@ -26,9 +26,4 @@ def create_app():
 
     app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema.schema, graphiql=True))
 
-    # shell context for flask cli
-    @app.shell_context_processor
-    def ctx():
-        return {'app': app, 'db': db}
-
     return app
