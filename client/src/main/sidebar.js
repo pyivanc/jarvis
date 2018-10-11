@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faList, faHome } from '@fortawesome/free-solid-svg-icons'
+import { faList, faHome, faUsers } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom';
 
 const StyledSidebar = styled.div`
@@ -25,6 +25,9 @@ export default () => (
             </StyledSection>
             <StyledSection to='/todos'>
                 <FontAwesomeIcon icon={faList} />
+            </StyledSection>
+            <StyledSection to='/jira'>
+                <FontAwesomeIcon icon={faUsers} />
             </StyledSection>
     </StyledSidebar>
 );

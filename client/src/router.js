@@ -3,9 +3,10 @@ import styled, { ThemeProvider } from 'styled-components';
 import { Header, Sidebar } from './main';
 import Home from './home';
 import Todos from './todos';
+import Jira from './jira';
 import { mainTheme } from './theme';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 
 const App = styled.div`
     height: 100vh;
@@ -32,6 +33,7 @@ export default () => (
                 <Content>
                     <Route exact path='/' component={Home} />
                     <Route path='/todos' component={Todos} />
+                    <Route path='/jira' component={Jira} />
                 </Content>
             </App>
         </ThemeProvider>
