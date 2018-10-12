@@ -1,33 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faList, faHome, faUsers } from '@fortawesome/free-solid-svg-icons'
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import Divider from '@material-ui/core/Divider';
+import InboxIcon from '@material-ui/icons/Inbox';
+import DraftsIcon from '@material-ui/icons/Drafts';
 import { Link } from 'react-router-dom';
 
-const StyledSidebar = styled.div`
+const StyledList = styled(List)`
     grid-area: sidebar;
-    background-color: ${({theme}) => theme.pallete.black};
-    color: ${({theme}) => theme.pallete.white};
 `;
 
-const StyledSection = styled(Link)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    height: 50px;
-    color: ${({theme}) => theme.pallete.white};
-`;
 export default () => (
-    <StyledSidebar>
-            <StyledSection to='/'>
-                <FontAwesomeIcon icon={faHome} />
-            </StyledSection>
-            <StyledSection to='/todos'>
-                <FontAwesomeIcon icon={faList} />
-            </StyledSection>
-            <StyledSection to='/jira'>
-                <FontAwesomeIcon icon={faUsers} />
-            </StyledSection>
-    </StyledSidebar>
+    <StyledList component="nav">
+        <List>
+            <ListItem button>
+                <ListItemIcon>
+                <InboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Inbox" />
+            </ListItem>
+            <ListItem button>
+                <ListItemIcon>
+                <DraftsIcon />
+                </ListItemIcon>
+                <ListItemText primary="Drafts" />
+            </ListItem>
+        </List>
+        <Divider />
+        <List component="nav">
+            <ListItem button>
+                <ListItemText primary="Trash" />
+            </ListItem>
+            <ListItem button component="a" href="#simple-list">
+                <ListItemText primary="Spam" />
+            </ListItem>
+        </List>
+    </StyledList>
 );
