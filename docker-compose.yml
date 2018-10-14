@@ -11,7 +11,7 @@ services:
       - 5000:5000
     environment:
       - FLASK_ENV=development
-      - APP_SETTINGS=jarvis.config.DevelopmentConfig
+      - APP_SETTINGS=development
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     depends_on:
@@ -21,6 +21,8 @@ services:
     build:
       context: ./db
       dockerfile: Dockerfile
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data
     expose:
       - 5432
     environment:

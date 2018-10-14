@@ -11,3 +11,11 @@ class Todo(db.Model):
     description = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     is_done = db.Column(db.Boolean, default=False)
+
+    @classmethod
+    def get_by_id(cls, id):
+        return Todo.query.get(id)
+
+    @classmethod
+    def get_all(cls):
+        return Todo.query.all()
