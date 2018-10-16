@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Todo from './todo';
+import { getTodos } from '../actions';
 
 const StyledTodos = styled.div`
     display: grid;
@@ -57,6 +58,11 @@ export default class Todos extends React.Component {
             }
 
         ]
+    }
+
+    async componentWillMount() {
+        const todos = await getTodos();
+        this.setState({ todos });
     }
 
     render() {

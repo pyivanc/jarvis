@@ -7,36 +7,33 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
-import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const StyledList = styled(List)`
     grid-area: sidebar;
+    border-right: 1px solid black;
 `;
 
-export default () => (
-    <StyledList component="nav">
-        <List>
-            <ListItem button>
-                <ListItemIcon>
-                <InboxIcon />
-                </ListItemIcon>
-                <ListItemText primary="Inbox" />
-            </ListItem>
-            <ListItem button>
-                <ListItemIcon>
-                <DraftsIcon />
-                </ListItemIcon>
-                <ListItemText primary="Drafts" />
-            </ListItem>
-        </List>
-        <Divider />
-        <List component="nav">
-            <ListItem button>
-                <ListItemText primary="Trash" />
-            </ListItem>
-            <ListItem button component="a" href="#simple-list">
-                <ListItemText primary="Spam" />
-            </ListItem>
-        </List>
-    </StyledList>
-);
+const Sidebar = (props) => {
+    const goTo = (route) => props.history.push(route);
+    return (
+        <StyledList component="nav">
+            <List>
+                <ListItem button>
+                    <ListItemIcon>
+                    <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="TODO" onClick={() => goTo('todos')} />
+                </ListItem>
+                <ListItem button>
+                    <ListItemIcon>
+                    <DraftsIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Jira" onClick={() => goTo('jira')} />
+                </ListItem>
+            </List>
+        </StyledList>
+    );
+}
+
+export default withRouter(Sidebar);
