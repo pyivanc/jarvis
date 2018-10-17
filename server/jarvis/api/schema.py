@@ -1,23 +1,28 @@
 import graphene
-from graphene import relay, List, String, Field
+from graphene import List, Field
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from .todos.schemas import Todo, TodoItem
-from .jira.schema import Ticket
+from .todos.models import Todo as TodoModel, TodoItem as TodoItemModel
 from .jira.models import Ticket as TicketModel
+from jarvis import db
 
 
 class Query(graphene.ObjectType):
-    node = relay.Node.Field()
-    todo = relay.Node.Field(Todo)
-    todoList = SQLAlchemyConnectionField(Todo)
-    todoItem = relay.Node.Field(TodoItem)
-    todoItemList = SQLAlchemyConnectionField(TodoItem)
+    todo = Field(Todo)
+    todo_list = List(Todo)
+    todo_item = Field(TodoItem)
+    todo_item_list = List(TodoItem)
 
-    # tickets = Field(Ticket, args={'id': String()})
+    def resolve_todo(self, *args, **kwargs):
+        return db.session.query(TodoModel).first()
 
-    def resolve_tickets(self, info, id):
-        return TicketModel.get_by_id(id)
+    def resolve_todo_list(self, *args, **kwargs):
+        return db.session.query(TodoModel).all()
+
+    def resolve_todo_item(self, *args, **kwargs):
+        return db.session.query(TodoItemModel).first()
     
-
+    def resolve_todo_item_list(self, *args, **kwargs):
+        return db.session.query(TodoItemModel).all()
 
 schema = graphene.Schema(query=Query)

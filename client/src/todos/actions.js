@@ -1,26 +1,21 @@
-export function getTodos() {
+import { fetchGraphQL } from '../utils';
+
+export async function getTodos() {
     const query = {
-        query: `{
-            allTodos {
-                edges {
-                    node {
-                        title,
-                        description,
-                        createdAt,
-                        isDone
-                    }
-                }
+        query: `
+        {
+            todoList {
+              title,
+              description,
+              createdAt,
+              isDone
+              items {
+                title
+              }
             }
-        }`
+          }
+        `
     };
-    return fetch('http://localhost:5000/graphql?', {
-        method: 'POST',
-        mode: "cors",
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(query)
-    })
-    .then(async res => {
-        const result = await res.json();
-        return result.data.allTodos.edges.map(edge => edge.node);
-    });
+    const res = await fetchGraphQL(query);
+    return res.data;
 }

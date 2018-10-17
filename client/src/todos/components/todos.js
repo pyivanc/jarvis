@@ -62,7 +62,8 @@ export default class Todos extends React.Component {
 
     async componentWillMount() {
         const todos = await getTodos();
-        this.setState({ todos });
+        console.log(todos);
+        this.setState({ todos: todos.data.todoList });
     }
 
     render() {
