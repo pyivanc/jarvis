@@ -9,11 +9,7 @@ services:
       - ./server/jarvis:/usr/src/app/jarvis
     ports:
       - 5000:5000
-    environment:
-      - FLASK_ENV=development
-      - APP_SETTINGS=development
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+    env_file: ./server/.env
     depends_on:
       - postgres
 

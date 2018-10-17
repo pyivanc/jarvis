@@ -1,15 +1,22 @@
 from jira import JIRA
-from flask import current_app
-
+"""
 JIRA_OPTIONS = {
-    'server': 'https://jira.hootsuitemedia.com',
+    'server': app.config['JIRA_HOST'],
 }
 
-# jira = JIRA(JIRA_OPTIONS, basic_auth=('ivan.company', 'Reclutador69Wifi'))
+
+jira = JIRA(
+    JIRA_OPTIONS,
+    basic_auth=(
+        app.config['JIRA_USERNAME'],
+        app.config['JIRA_PASSWORD']
+    )
+)
+"""
 
 class Ticket():
 
     @classmethod
     def get_by_id(cls, id):
-        current_app.logger.info(id)
+        app.logger.info(id)
         return jira.issue(id)

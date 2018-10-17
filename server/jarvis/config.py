@@ -10,6 +10,9 @@ class BaseConfig:
     DEBUG = False
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    JIRA_HOST = os.environ.get('JIRA_HOST')
+    JIRA_USERNAME = os.environ.get('JIRA_USERNAME')
+    JIRA_PASSWORD = os.environ.get('JIRA_PASSWORD')
 
     @staticmethod
     def init_app(app):
