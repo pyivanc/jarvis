@@ -23,7 +23,7 @@ const StyledHeader = styled.div`
 const StyledChecked = styled.div`
 `;
 
-export default ({data}) => {
+const TodoComponent = ({ data }) => {
     const checkIcon = data.checked ? faCheckSquare : faSquare;
     return (
         <StyledTodo>
@@ -33,7 +33,9 @@ export default ({data}) => {
                     <FontAwesomeIcon icon={checkIcon} />
                 </StyledChecked>
             </StyledHeader>
-            { data.items.map(i => <TodoItem data={i} />)}
+            { data.items.map(i => <TodoItem key={`todo_item_${i.id}`} data={i} />)}
         </StyledTodo>
     );
 }
+
+export default TodoComponent;

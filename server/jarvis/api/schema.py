@@ -11,16 +11,16 @@ class Query(graphene.ObjectType):
     todo_item = Field(TodoItem)
     todo_item_list = List(TodoItem)
 
-    def resolve_todo(self):
+    def resolve_todo(self, *args, **kwargs):
         return db.session.query(TodoModel).first()
 
-    def resolve_todo_list(self):
+    def resolve_todo_list(self, *args, **kwargs):
         return db.session.query(TodoModel).all()
 
-    def resolve_todo_item(self):
+    def resolve_todo_item(self, *args, **kwargs):
         return db.session.query(TodoItemModel).first()
     
-    def resolve_todo_item_list(self):
+    def resolve_todo_item_list(self, *args, **kwargs):
         return db.session.query(TodoItemModel).all()
 
 

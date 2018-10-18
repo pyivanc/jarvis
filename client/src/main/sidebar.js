@@ -1,39 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import { withRouter } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faList, faHome, faUsers } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom';
 
-const StyledList = styled(List)`
+const StyledSidebar = styled.div`
     grid-area: sidebar;
-    border-right: 1px solid black;
+    background-color: ${({theme}) => theme.pallete.black};
+    color: ${({theme}) => theme.pallete.white};
 `;
 
-const Sidebar = (props) => {
-    const goTo = (route) => props.history.push(route);
-    return (
-        <StyledList component="nav">
-            <List>
-                <ListItem button>
-                    <ListItemIcon>
-                    <InboxIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="TODO" onClick={() => goTo('todos')} />
-                </ListItem>
-                <ListItem button>
-                    <ListItemIcon>
-                    <DraftsIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Jira" onClick={() => goTo('jira')} />
-                </ListItem>
-            </List>
-        </StyledList>
-    );
-}
+const StyledSection = styled(Link)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    height: 50px;
+    color: ${({theme}) => theme.pallete.white};
+`;
 
-export default withRouter(Sidebar);
+const SidebarComponent = () => (
+    <StyledSidebar>
+            <StyledSection to='/'>
+                <FontAwesomeIcon icon={faHome} />
+            </StyledSection>
+            <StyledSection to='/todos'>
+                <FontAwesomeIcon icon={faList} />
+            </StyledSection>
+            <StyledSection to='/jira'>
+                <FontAwesomeIcon icon={faUsers} />
+            </StyledSection>
+    </StyledSidebar>
+);
+
+export default SidebarComponent;

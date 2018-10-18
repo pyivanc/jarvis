@@ -3,8 +3,10 @@ import styled from 'styled-components';
 
 const StyledTodoItem = styled.div``;
 
-export default ({data}) => (
+const TodoItemComponent = ({ data }) => (
     <StyledTodoItem>
         { data.title }
     </StyledTodoItem>
-)
+);
+
+export default TodoItemComponent;

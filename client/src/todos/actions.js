@@ -5,11 +5,13 @@ export async function getTodos() {
         query: `
         {
             todoList {
+              id,
               title,
               description,
               createdAt,
               isDone
               items {
+                id,
                 title
               }
             }
@@ -17,5 +19,5 @@ export async function getTodos() {
         `
     };
     const res = await fetchGraphQL(query);
-    return res.data;
+    return res.data.todoList;
 }
