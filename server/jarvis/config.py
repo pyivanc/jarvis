@@ -33,6 +33,7 @@ class ProductionConfig(BaseConfig):
     """Production configuration"""
     SQLALCHEMY_DATABASE_URI = DATABASE_URL
 
+
 config = {
     'development': DevelopmentConfig
 }

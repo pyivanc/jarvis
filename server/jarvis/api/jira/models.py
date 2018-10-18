@@ -1,5 +1,6 @@
-from jira import JIRA
 """
+from jira import JIRA
+
 JIRA_OPTIONS = {
     'server': app.config['JIRA_HOST'],
 }
@@ -14,9 +15,11 @@ jira = JIRA(
 )
 """
 
-class Ticket():
+jira = None
+
+
+class Ticket(object):
 
     @classmethod
-    def get_by_id(cls, id):
-        app.logger.info(id)
-        return jira.issue(id)
+    def get_by_id(cls, ticket_id):
+        return jira.issue(ticket_id)

@@ -1,9 +1,7 @@
 import graphene
 from graphene import List, Field
-from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from .todos.schemas import Todo, TodoItem
 from .todos.models import Todo as TodoModel, TodoItem as TodoItemModel
-from .jira.models import Ticket as TicketModel
 from jarvis import db
 
 
@@ -13,16 +11,17 @@ class Query(graphene.ObjectType):
     todo_item = Field(TodoItem)
     todo_item_list = List(TodoItem)
 
-    def resolve_todo(self, *args, **kwargs):
+    def resolve_todo(self):
         return db.session.query(TodoModel).first()
 
-    def resolve_todo_list(self, *args, **kwargs):
+    def resolve_todo_list(self):
         return db.session.query(TodoModel).all()
 
-    def resolve_todo_item(self, *args, **kwargs):
+    def resolve_todo_item(self):
         return db.session.query(TodoItemModel).first()
     
-    def resolve_todo_item_list(self, *args, **kwargs):
+    def resolve_todo_item_list(self):
         return db.session.query(TodoItemModel).all()
+
 
 schema = graphene.Schema(query=Query)

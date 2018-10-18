@@ -1,6 +1,4 @@
-from datetime import datetime
-
-from flask import jsonify, current_app
+from flask import jsonify
 
 from jarvis.api import api
 from .models import Todo

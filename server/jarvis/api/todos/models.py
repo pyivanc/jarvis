@@ -1,6 +1,7 @@
 from datetime import datetime
 from jarvis import db
 
+
 class TodoItem(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -10,8 +11,8 @@ class TodoItem(db.Model):
     is_done = db.Column(db.Boolean, default=False)
     todo_id = db.Column(db.Integer, db.ForeignKey('todo.id'))
 
-class Todo(db.Model):
 
+class Todo(db.Model):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(255))
@@ -21,8 +22,8 @@ class Todo(db.Model):
     items = db.relationship('TodoItem', backref=db.backref('todo'))
 
     @classmethod
-    def get_by_id(cls, id):
-        return Todo.query.get(id)
+    def get_by_id(cls, todo_id):
+        return Todo.query.get(todo_id)
 
     @classmethod
     def get_all(cls):
