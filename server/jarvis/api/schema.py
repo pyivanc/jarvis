@@ -1,6 +1,6 @@
 import graphene
 from graphene import List, Field
-from .todos.schemas import Todo, TodoItem
+from .todos.schemas import Todo, TodoItem, ToggleTodo
 from .todos.models import Todo as TodoModel, TodoItem as TodoItemModel
 from jarvis import db
 
@@ -24,4 +24,8 @@ class Query(graphene.ObjectType):
         return db.session.query(TodoItemModel).all()
 
 
-schema = graphene.Schema(query=Query)
+class Mutations(graphene.ObjectType):
+    toggle_todo = ToggleTodo.Field()
+
+
+schema = graphene.Schema(query=Query, mutation=Mutations)
