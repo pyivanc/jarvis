@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { Header, Sidebar } from './main';
 import Home from './home';
@@ -30,11 +30,11 @@ export default () => (
             <App>
                 <Header />
                 <Sidebar />
-                <Content>
+                <div className="container">
                     <Route exact path='/' component={Home} />
                     <Route path='/todos' component={Todos} />
                     <Route path='/jira' component={Jira} />
-                </Content>
+                </div>
             </App>
         </ThemeProvider>
     </Router>

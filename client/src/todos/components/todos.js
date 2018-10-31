@@ -1,14 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import * as React from 'react';
 
 import Todo from './todo';
-import { getTodos } from '../actions';
-
-const StyledTodos = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 20px;
-`
+import * as actions from '../actions';
 
 export default class Todos extends React.Component {
     constructor(props) {
@@ -16,18 +9,39 @@ export default class Todos extends React.Component {
         this.state = {
             todos: []
         };
+
+        this.onToggle = this.onToggle.bind(this);
+        this.onToggleItem = this.onToggleItem.bind(this);
     }
 
-    async componentWillMount() {
-        const todos = await getTodos();
+    async componentDidMount() {
+        const todos = await actions.getTodos();
         this.setState({ todos: todos });
+    }
+
+    async onToggle(todoId) {
+        await actions.toggleTodo(todoId);
+        const todos = await actions.getTodos();
+        this.setState({ todos });
+    }
+
+    async onToggleItem(todoId, todoItemId) {
+        await actions.toggleTodoItem(todoId, todoItemId);
+        const todos = await actions.getTodos();
+        this.setState({ todos });
     }
 
     render() {
         return (
-            <StyledTodos>
-                { this.state.todos.map(t => <Todo key={`todo_${t.id}`} data={t} />) }
-            </StyledTodos>
+            <div className="row">
+                { this.state.todos.map(t => 
+                    <Todo
+                        key={`todo_${t.id}`}
+                        todo={t}
+                        onToggle={this.onToggle}
+                        onToggleItem={this.onToggleItem}
+                    />) }
+            </div>
         );
     }
 }

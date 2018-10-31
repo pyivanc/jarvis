@@ -21,8 +21,17 @@ class ToggleTodo(graphene.Mutation):
     todo = graphene.Field(Todo)
 
     def mutate(self, info, todo_id):
-        todo = TodoModel.query.get(todo_id)
-        if todo:
-            todo.is_done = not todo.is_done
-            db.session.commit()
+        todo = TodoModel.toggle_todo(todo_id)
         return ToggleTodo(todo=todo)
+
+class ToggleTodoItem(graphene.Mutation):
+    class Arguments:
+        todo_id = graphene.Int()
+        todo_item_id = graphene.Int()
+
+    todo = graphene.Field(Todo)
+
+    def mutate(self, info, todo_id, todo_item_id):
+        todo = TodoModel.toggle_todo_item(todo_id, todo_item_id)
+        return ToggleTodo(todo=todo)
+
