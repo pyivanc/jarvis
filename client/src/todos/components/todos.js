@@ -33,14 +33,21 @@ export default class Todos extends React.Component {
 
     render() {
         return (
-            <div className="row">
-                { this.state.todos.map(t => 
-                    <Todo
-                        key={`todo_${t.id}`}
-                        todo={t}
-                        onToggle={this.onToggle}
-                        onToggleItem={this.onToggleItem}
-                    />) }
+            <div className="container">
+                <div className="row mb-4">
+                    <div className="col">
+                        <button className="btn btn-primary">Add TODO</button>
+                    </div>
+                </div>
+                <div className="row">
+                    { this.state.todos.map(t => 
+                        <Todo
+                            key={`todo_${t.id}`}
+                            todo={t}
+                            onToggle={this.onToggle}
+                            onToggleItem={this.onToggleItem}
+                        />) }
+                </div>
             </div>
         );
     }

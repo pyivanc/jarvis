@@ -19,23 +19,18 @@ const App = styled.div`
         "sidebar content";
 `;
 
-const Content = styled.div`
-    grid-area: content;
-    padding: 20px;
-`;
 
 export default () => (
     <Router>
         <ThemeProvider theme={mainTheme}>
-            <App>
+            <div>
                 <Header />
-                <Sidebar />
-                <div className="container">
+                <div>
                     <Route exact path='/' component={Home} />
                     <Route path='/todos' component={Todos} />
                     <Route path='/jira' component={Jira} />
                 </div>
-            </App>
+            </div>
         </ThemeProvider>
     </Router>
 );

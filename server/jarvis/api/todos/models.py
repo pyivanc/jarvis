@@ -23,7 +23,11 @@ class Todo(db.Model):
     description = db.Column(db.String)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     is_done = db.Column(db.Boolean, default=False)
-    items = db.relationship('TodoItem', backref=db.backref('todo'), lazy='dynamic')
+    items = db.relationship('TodoItem',
+        backref=db.backref('todo'),
+        lazy='dynamic',
+        order_by=TodoItem.id
+    )
 
     @classmethod
     def get_by_id(cls, todo_id):

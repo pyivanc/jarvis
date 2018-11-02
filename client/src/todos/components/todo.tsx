@@ -8,6 +8,7 @@ import { Todo as TodoType } from './types';
 
 import TodoItem from './todo-item';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import TodoHeader from './todo-header';
 
 
 const Title = styled.h5`
@@ -33,16 +34,16 @@ class TodoComponent extends React.Component<PropTypes, null> {
     render() {
         const { todo, onToggle, onToggleItem } = this.props;
         const checkIcon: IconProp = todo.isDone ? faCheckSquare : faSquare;
+        todo.items.sort((a, b) => a.id < b.id);
         return (
             <div className="col-sm">
                 <div className="card">
                     <div className="card-body">
-                        <Title className="card-title">
-                            <TitleText>{todo.title}</TitleText>
-                            <div onClick={() => onToggle(todo.id)}>
-                                <FontAwesomeIcon icon={checkIcon} />
-                            </div>
-                        </Title>
+                        <TodoHeader
+                            isChecked={todo.isDone}
+                            onToggle={() => onToggle(todo.id)}
+                            title={todo.title}
+                        />
                         <h6 className="card-subtitle">{todo.description}</h6>
                     </div>
                     <ul className="list-group list-group-flush">

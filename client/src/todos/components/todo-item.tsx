@@ -1,10 +1,7 @@
 import * as React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import { faSquare } from '@fortawesome/free-regular-svg-icons';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
 import { TodoItem as TodoItemType } from './types';
+import TodoHeader from './todo-header';
 
 interface PropTypes {
     item: TodoItemType;
@@ -16,14 +13,14 @@ class TodoItemComponent extends React.Component<PropTypes, null> {
 
     render() {
         const { item, todoId, onToggle } = this.props;
-        const checkIcon: IconProp = item.isDone ? faCheckSquare : faSquare;
-
+        
         return (
             <li className="list-group-item">
-                { item.title }
-                <div onClick={() => onToggle(todoId, item.id)}>
-                    <FontAwesomeIcon icon={checkIcon} />
-                </div>
+                <TodoHeader
+                    title={item.title}
+                    onToggle={() => onToggle(todoId, item.id)}
+                    isChecked={item.isDone}
+                />
             </li>
         );
     }
