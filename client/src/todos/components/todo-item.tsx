@@ -14,7 +14,6 @@ class TodoItemComponent extends React.Component<PropTypes, null> {
 
     constructor(props) {
         super(props);
-
         this.onToggle = this.onToggle.bind(this);
     }
 

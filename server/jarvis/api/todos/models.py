@@ -1,4 +1,6 @@
 from datetime import datetime
+from flask import current_app
+
 from jarvis import db
 
 
@@ -53,4 +55,14 @@ class Todo(db.Model):
             if todo_item:
                 todo_item.is_done = not todo_item.is_done
                 db.session.commit()
+        return todo
+
+    @classmethod
+    def update_todo(cls, todo_id, data):
+        todo = Todo.get_by_id(todo_id)
+        if todo:
+            for key, value in data.__dict__.items():
+                if value is not None:
+                    setattr(todo, key, value)
+            db.session.commit()
         return todo

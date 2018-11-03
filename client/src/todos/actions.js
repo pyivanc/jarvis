@@ -32,11 +32,12 @@ export async function getTodos() {
 }
 
 export async function updateTodo(todoId, input) {
+  const jsonInput = JSON.stringify(input).replace(/\"([^(\")"]+)\":/g,"$1:");
   const query = {
     query: `
       ${todoFragment}
       mutation {
-        updateTodo(todoId: ${todoId}, input: ${input}) {
+        updateTodo(todoId: ${todoId}, input: ${jsonInput}) {
           todo {
             ...todoFields
           }

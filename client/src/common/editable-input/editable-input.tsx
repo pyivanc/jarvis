@@ -40,6 +40,9 @@ class EditableInput extends React.Component<PropTypes, StateTypes> {
         const { onSubmit } = this.props;
         if(event.key === 'Enter') {
             onSubmit(event.currentTarget.value);
+            this.setState({
+                viewMode: true,
+            })
         }
     }
 
