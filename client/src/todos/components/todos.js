@@ -10,25 +10,16 @@ export default class Todos extends React.Component {
             todos: []
         };
 
-        this.onToggle = this.onToggle.bind(this);
-        this.onToggleItem = this.onToggleItem.bind(this);
+        this.onChange = this.onChange.bind(this);
     }
 
     async componentDidMount() {
+        await this.onChange();
+    }
+
+    async onChange() {
         const todos = await actions.getTodos();
         this.setState({ todos: todos });
-    }
-
-    async onToggle(todoId) {
-        await actions.toggleTodo(todoId);
-        const todos = await actions.getTodos();
-        this.setState({ todos });
-    }
-
-    async onToggleItem(todoId, todoItemId) {
-        await actions.toggleTodoItem(todoId, todoItemId);
-        const todos = await actions.getTodos();
-        this.setState({ todos });
     }
 
     render() {
@@ -44,8 +35,7 @@ export default class Todos extends React.Component {
                         <Todo
                             key={`todo_${t.id}`}
                             todo={t}
-                            onToggle={this.onToggle}
-                            onToggleItem={this.onToggleItem}
+                            onChange={this.onChange}
                         />) }
                 </div>
             </div>

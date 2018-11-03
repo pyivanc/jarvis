@@ -1,39 +1,37 @@
 import * as React from 'react'
-import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckSquare } from '@fortawesome/free-solid-svg-icons';
-import { faSquare } from '@fortawesome/free-regular-svg-icons';
-
 import { Todo as TodoType } from './types';
+import * as actions from '../actions';
 
 import TodoItem from './todo-item';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import TodoHeader from './todo-header';
-
-
-const Title = styled.h5`
-    display: flex;
-`;
-
-const TitleText = styled.div`
-    flex: 1;
-`;
 
 interface PropTypes {
     todo: TodoType;
-    onToggle: any;
-    onToggleItem: any;
+    onChange: () => any;
 }
 
 class TodoComponent extends React.Component<PropTypes, null> {
 
     constructor(props: PropTypes) {
         super(props);
+        this.onHeaderToggle = this.onHeaderToggle.bind(this);
+        this.onHeaderChange = this.onHeaderChange.bind(this);
+    }
+
+    async onHeaderToggle() {
+        const { todo, onChange } = this.props;
+        await actions.updateTodo(todo.id, { isDone: !todo.isDone });
+        onChange();
+    }
+
+    async onHeaderChange(value) {
+        const { todo, onChange } = this.props;
+        await actions.updateTodo(todo.id, { title: value });
+        onChange();
     }
 
     render() {
-        const { todo, onToggle, onToggleItem } = this.props;
-        const checkIcon: IconProp = todo.isDone ? faCheckSquare : faSquare;
+        const { todo, onChange } = this.props;
         todo.items.sort((a, b) => a.id < b.id);
         return (
             <div className="col-sm">
@@ -41,7 +39,8 @@ class TodoComponent extends React.Component<PropTypes, null> {
                     <div className="card-body">
                         <TodoHeader
                             isChecked={todo.isDone}
-                            onToggle={() => onToggle(todo.id)}
+                            onToggle={this.onHeaderToggle}
+                            onChange={this.onHeaderChange}
                             title={todo.title}
                         />
                         <h6 className="card-subtitle">{todo.description}</h6>
@@ -53,7 +52,7 @@ class TodoComponent extends React.Component<PropTypes, null> {
                                     key={`todo_item_${i.id}`}
                                     item={i}
                                     todoId={todo.id}
-                                    onToggle={onToggleItem}
+                                    onChange={onChange}
                                 />
                             )
                         }

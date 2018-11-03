@@ -31,29 +31,29 @@ export async function getTodos() {
     return res.data.todoList;
 }
 
-export async function toggleTodo(todoId) {
+export async function updateTodo(todoId, input) {
   const query = {
-      query: `
-        ${todoFragment}
-        mutation {
-          toggleTodo(todoId: ${todoId}) {
-            todo {
-              ...todoFields
-            }
+    query: `
+      ${todoFragment}
+      mutation {
+        updateTodo(todoId: ${todoId}, input: ${input}) {
+          todo {
+            ...todoFields
           }
         }
-      `
+      }
+    `
   };
   const res = await fetchGraphQL(query);
-  return res.data.toggleTodo.todo;
+  return res.data.updateTodo.todo;
 }
 
-export async function toggleTodoItem(todoId, todoItemId) {
+export async function updateTodoItem(todoId, todoItemId, input) {
   const query = {
       query: `
         ${todoFragment}
         mutation {
-          toggleTodoItem(todoId: ${todoId}, todoItemId: ${todoItemId}) {
+          updateTodoItem(todoId: ${todoId}, todoItemId: ${todoItemId}, input: ${input}) {
             todo {
               ...todoFields
             }
@@ -62,5 +62,5 @@ export async function toggleTodoItem(todoId, todoItemId) {
       `
   };
   const res = await fetchGraphQL(query);
-  return res.data.toggleTodoItem.todo;
+  return res.data.updateTodoItem.todo;
 }
