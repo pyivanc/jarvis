@@ -8,6 +8,7 @@ interface PropTypes {
     item: TodoItemType;
     todoId: number,
     onChange: () => Promise<void>;
+    onDelete: (todoItemId: number) => Promise<void>;
 }
 
 class TodoItemComponent extends React.Component<PropTypes, null> {
@@ -20,25 +21,26 @@ class TodoItemComponent extends React.Component<PropTypes, null> {
     async onChange(value) {
         const { todoId, item, onChange } = this.props;
         await actions.updateTodoItem(todoId, item.id, { title: value });
-        onChange();
+        await onChange();
     }
 
     async onToggle() {
         const { todoId, item, onChange } = this.props;
         await actions.updateTodoItem(todoId, item.id, { isDone: !item.isDone });
-        onChange();
+        await onChange();
     }
 
     render() {
-        const { item } = this.props;
+        const { item, onDelete } = this.props;
         
         return (
             <li className="list-group-item">
                 <TodoHeader
                     title={item.title}
-                    onToggle={this.onToggle}
-                    onChange={(value) => this.onChange(value)}
                     isChecked={item.isDone}
+                    onToggle={this.onToggle}
+                    onChange={async (value) => await this.onChange(value)}
+                    onDelete={async () => await onDelete(item.id)}
                 />
             </li>
         );

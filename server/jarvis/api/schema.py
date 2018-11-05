@@ -1,6 +1,6 @@
 import graphene
 from graphene import List, Field
-from .todos.schemas import Todo, TodoItem, UpdateTodo
+from .todos.schemas import Todo, TodoItem, UpdateTodo, UpdateTodoItem, DeleteTodoItem, AddTodoItem, AddTodo, DeleteTodo
 from .todos.models import Todo as TodoModel, TodoItem as TodoItemModel
 from jarvis import db
 
@@ -25,7 +25,12 @@ class Query(graphene.ObjectType):
 
 
 class Mutations(graphene.ObjectType):
-    update_todo = UpdateTodo.Field()
+    update_todo      = UpdateTodo.Field()
+    add_todo         = AddTodo.Field()
+    delete_todo      = DeleteTodo.Field()
+    add_todo_item    = AddTodoItem.Field()
+    update_todo_item = UpdateTodoItem.Field()
+    delete_todo_item = DeleteTodoItem.Field()
 
 
 schema = graphene.Schema(query=Query, mutation=Mutations)

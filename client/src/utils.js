@@ -6,5 +6,9 @@ export function fetchGraphQL(query) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(query)
     })
-    .then(async res => await res.json());
+    .then(async res => await res.json())
+    .then((data) => {
+        console.log(data);
+        return data;
+    });
 }

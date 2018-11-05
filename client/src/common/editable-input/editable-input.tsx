@@ -1,10 +1,24 @@
 import * as React from 'react';
+import styled from 'styled-components';
 
+const InputEdit = styled.input`
+    width: 100%;
+    padding: 0;
+    border-width: 0;
+    border-bottom-width: 1px;
+`;
+
+const InputView = styled.div`
+    height: 100%;
+    min-height: 30px;
+    display: flex;
+    align-items: center;
+`;
 
 interface PropTypes {
-    type: InputType,
     onSubmit: (value: InputValue) => any;
     value: InputValue;
+    className: string;
 }
 
 interface StateTypes { 
@@ -28,7 +42,7 @@ class EditableInput extends React.Component<PropTypes, StateTypes> {
     toggleMode() {
         this.setState({
             viewMode: !this.state.viewMode,
-            value: this.props.value,
+            value: this.props.value || '',
          });
     }
 
@@ -48,18 +62,21 @@ class EditableInput extends React.Component<PropTypes, StateTypes> {
 
     renderView() {
         const { value } = this.state;
-        return <span onClick={this.toggleMode}>{value}</span>;
+        const { className } = this.props;
+        return <InputView className={className} onClick={this.toggleMode}>{value}</InputView>;
     }
 
     renderEdit() {
-        const { type } = this.props;
         const { value } = this.state;
+        const { className } = this.props;
         return (
-            <input
-                type={type}
+            <InputEdit
+                className={className}
                 value={value}
                 onChange={this.handleChange}
                 onKeyPress={this.handleKeyPress}
+                autoFocus
+                onBlur={this.toggleMode}
             />
         );
     }
