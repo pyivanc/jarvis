@@ -32,16 +32,15 @@ interface TitleProps {
 
 interface PropTypes {
     title: string;
-    onToggle: any;
     isChecked: boolean;
-    onChange: (value: string) => any;
+    onChange: (value: object) => any;
     onDelete: (event: any) => any;
 }
 
 class TodoHeader extends React.Component<PropTypes, any> {
     
     render() {
-        const { title, onToggle, isChecked, onChange, onDelete } = this.props;
+        const { title, isChecked, onChange, onDelete } = this.props;
         const checkIcon: IconProp = isChecked ? faCheckSquare : faSquare;
 
         return (
@@ -52,9 +51,9 @@ class TodoHeader extends React.Component<PropTypes, any> {
                     </button>
                 </DeleteIcon>
                 <TitleText>
-                    <EditableInput value={title} onSubmit={onChange}></EditableInput>
+                    <EditableInput value={title} onSubmit={(value) => onChange({title: value})}></EditableInput>
                 </TitleText>
-                <CheckIcon onClick={onToggle}>
+                <CheckIcon onClick={() => onChange({isDone: !isChecked})}>
                     <FontAwesomeIcon icon={checkIcon} />
                 </CheckIcon>
             </Title>

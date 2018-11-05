@@ -8,44 +8,42 @@ interface PropTypes {
     item: TodoItemType;
     todoId: number,
     onChange: () => Promise<void>;
-    onDelete: (todoItemId: number) => Promise<void>;
 }
 
 class TodoItemComponent extends React.Component<PropTypes, null> {
 
     constructor(props) {
         super(props);
-        this.onToggle = this.onToggle.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onDelete = this.onDelete.bind(this);
     }
 
-    async onChange(value) {
+    async onChange(data) {
         const { todoId, item, onChange } = this.props;
-        await actions.updateTodoItem(todoId, item.id, { title: value });
+        await actions.updateTodoItem(todoId, item.id, data);
         await onChange();
     }
 
-    async onToggle() {
-        const { todoId, item, onChange } = this.props;
-        await actions.updateTodoItem(todoId, item.id, { isDone: !item.isDone });
+    async onDelete() {
+        const { todoId, onChange, item } = this.props;
+        await actions.deleteTodoItem(todoId, item.id);
         await onChange();
     }
 
     render() {
-        const { item, onDelete } = this.props;
+        const { item } = this.props;
         
         return (
             <li className="list-group-item">
                 <TodoHeader
                     title={item.title}
                     isChecked={item.isDone}
-                    onToggle={this.onToggle}
-                    onChange={async (value) => await this.onChange(value)}
-                    onDelete={async () => await onDelete(item.id)}
+                    onChange={this.onChange}
+                    onDelete={this.onDelete}
                 />
             </li>
         );
     }
 }
-
 
 export default TodoItemComponent;

@@ -15,29 +15,14 @@ class TodoComponent extends React.Component<PropTypes, null> {
 
     constructor(props: PropTypes) {
         super(props);
-        this.onHeaderToggle = this.onHeaderToggle.bind(this);
-        this.onHeaderChange = this.onHeaderChange.bind(this);
-        this.onDescChange = this.onDescChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.onDelete = this.onDelete.bind(this);
         this.onAddItem = this.onAddItem.bind(this);
-        this.onDeleteItem = this.onDeleteItem.bind(this);
     }
 
-    async onHeaderToggle() {
+    async onChange(data) {
         const { todo, onChange } = this.props;
-        await actions.updateTodo(todo.id, { isDone: !todo.isDone });
-        await onChange();
-    }
-
-    async onHeaderChange(value) {
-        const { todo, onChange } = this.props;
-        await actions.updateTodo(todo.id, { title: value });
-        await onChange();
-    }
-
-    async onDescChange(value) {
-        const { todo, onChange } = this.props;
-        await actions.updateTodo(todo.id, { description: value });
+        await actions.updateTodo(todo.id, data);
         await onChange();
     }
 
@@ -46,12 +31,6 @@ class TodoComponent extends React.Component<PropTypes, null> {
         await actions.addTodoItem(todo.id);
         await onChange();
         return false;
-    }
-
-    async onDeleteItem(todoItemId) {
-        const { todo, onChange } = this.props;
-        await actions.deleteTodoItem(todo.id, todoItemId);
-        await onChange();
     }
 
     async onDelete() {
@@ -70,14 +49,13 @@ class TodoComponent extends React.Component<PropTypes, null> {
                         <TodoHeader
                             title={todo.title}
                             isChecked={todo.isDone}
-                            onToggle={this.onHeaderToggle}
-                            onChange={this.onHeaderChange}
+                            onChange={this.onChange}
                             onDelete={this.onDelete}
                         />
                         <EditableInput
                             className="card-text"
                             value={todo.description}
-                            onSubmit={this.onDescChange}
+                            onSubmit={async (val) => await this.onChange({ description: val})}
                         />
                     </div>
                     <ul className="list-group list-group-flush">
@@ -88,7 +66,6 @@ class TodoComponent extends React.Component<PropTypes, null> {
                                     item={i}
                                     todoId={todo.id}
                                     onChange={onChange}
-                                    onDelete={this.onDeleteItem}
                                 />
                             )
                         }
