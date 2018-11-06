@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { TodoItem as TodoItemType } from './types';
-import TodoHeader from './todo-header';
-import * as actions from '../actions';
+import TodoItemComponent from './TodoItem.component';
+import { TodoItem as TodoItemType } from '../types';
+import * as actions from '../../actions';
 
 interface PropTypes {
     item: TodoItemType;
@@ -10,15 +10,15 @@ interface PropTypes {
     onChange: () => Promise<void>;
 }
 
-class TodoItemComponent extends React.Component<PropTypes, null> {
+class TodoItem extends React.Component<PropTypes, null> {
 
-    constructor(props) {
+    constructor(props: PropTypes) {
         super(props);
         this.onChange = this.onChange.bind(this);
         this.onDelete = this.onDelete.bind(this);
     }
 
-    async onChange(data) {
+    async onChange(data: object) {
         const { todoId, item, onChange } = this.props;
         await actions.updateTodoItem(todoId, item.id, data);
         await onChange();
@@ -32,18 +32,16 @@ class TodoItemComponent extends React.Component<PropTypes, null> {
 
     render() {
         const { item } = this.props;
-        
         return (
-            <li className="list-group-item">
-                <TodoHeader
-                    title={item.title}
-                    isChecked={item.isDone}
-                    onChange={this.onChange}
-                    onDelete={this.onDelete}
-                />
-            </li>
-        );
+            <TodoItemComponent
+                item={item}
+                onChange={this.onChange}
+                onDelete={this.onDelete}
+            />
+        )
+        
+
     }
 }
 
-export default TodoItemComponent;
+export default TodoItem;

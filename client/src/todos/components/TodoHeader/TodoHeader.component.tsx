@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckSquare, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { EditableInput } from '../../common';
+import { EditableInput } from '../../../common';
 
 const Title = styled.h5`
     display: flex;
@@ -33,7 +33,7 @@ interface TitleProps {
 interface PropTypes {
     title: string;
     isChecked: boolean;
-    onChange: (value: object) => any;
+    onChange: (data: object) => any;
     onDelete: (event: any) => any;
 }
 
