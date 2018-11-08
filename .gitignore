@@ -7,3 +7,4 @@ dist
 *.pyc
 .vscode
 dbdata
+yarn-error*

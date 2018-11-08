@@ -1,9 +1,9 @@
 import * as React from 'react';
+import { EditableInput } from 'jarvis-web-common/src/common';
 
 import TodoItem from '../TodoItem';
 import TodoHeader from '../TodoHeader';
 import { Todo as TodoType } from '../types';
-import { EditableInput } from '../../../common';
 
 interface PropTypes {
     todo: TodoType;
