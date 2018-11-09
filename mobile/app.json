@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "mobile",
+    "name": "jarvis-mobile",
     "description": "This project is really great.",
-    "slug": "mobile",
+    "slug": "jarvis-mobile",
     "privacy": "public",
     "sdkVersion": "31.0.0",
     "platforms": [
