@@ -19,6 +19,9 @@ class Header extends React.Component<RouteComponentProps, any> {
                         <li className={`nav-item ${path === '/todos' ? 'active' : ''}`}>
                             <Link className="nav-link" to="/todos">TODO lists</Link>
                         </li>
+                        <li className={`nav-item ${path === '/profiles' ? 'active' : ''}`}>
+                            <Link className="nav-link" to="/profiles">Profiles</Link>
+                        </li>
                     </ul>
                 </div>
             </nav>
