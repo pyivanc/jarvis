@@ -26,9 +26,9 @@ def create_app():
     migrate.init_app(app, db)
 
     # register blueprints
-    from jarvis.api import api as api_bp, schema
+    from jarvis.api import api as api_bp, schemas
     app.register_blueprint(api_bp)
 
-    app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schema.schema, graphiql=True))
+    app.add_url_rule('/graphql', view_func=GraphQLView.as_view('graphql', schema=schemas.schema, graphiql=True))
 
     return app

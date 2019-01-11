@@ -7,11 +7,10 @@ interface PropTypes {
 class Profile extends React.Component<PropTypes, any> {
     render() {
         const edges = [
-            {label: 'strength', value: 4},
-            {label: 'wisdome', value: 5},
-            {label: 'charisma', value: 8},
-            {label: 'dextrity', value: 1},
-            {label: 'stamina', value: 9}
+            {label: 'Leadership', value: 4},
+            {label: 'Tech', value: 5},
+            {label: 'Organization', value: 8},
+            {label: 'Predictive', value: 1},
         ]
         return (
             <Shape edges={edges} radius={200}/>

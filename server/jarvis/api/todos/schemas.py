@@ -95,3 +95,31 @@ class AddTodoItem(graphene.Mutation):
     def mutate(self, info, todo_id):
         todo = TodoModel.add_todo_item(todo_id)
         return AddTodoItem(todo=todo)
+
+
+class Query(graphene.AbstractType):
+    todo = graphene.Field(Todo)
+    todo_list = graphene.List(Todo)
+    todo_item = graphene.Field(TodoItem)
+    todo_item_list = graphene.List(TodoItem)
+
+    def resolve_todo(self, *args, **kwargs):
+        return db.session.query(TodoModel).first()
+
+    def resolve_todo_list(self, *args, **kwargs):
+        return db.session.query(TodoModel).all()
+
+    def resolve_todo_item(self, *args, **kwargs):
+        return db.session.query(TodoItemModel).first()
+    
+    def resolve_todo_item_list(self, *args, **kwargs):
+        return db.session.query(TodoItemModel).all()
+
+
+class Mutation(graphene.AbstractType):
+    update_todo      = UpdateTodo.Field()
+    add_todo         = AddTodo.Field()
+    delete_todo      = DeleteTodo.Field()
+    add_todo_item    = AddTodoItem.Field()
+    update_todo_item = UpdateTodoItem.Field()
+    delete_todo_item = DeleteTodoItem.Field()
